@@ -2,6 +2,7 @@ package com.example.modeltelegrambot.service.namozVaqtServis;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import javax.imageio.ImageIO;
@@ -93,5 +94,14 @@ public class NamozVaqtiService {
 
     public File getIMG(){
         return new File("img\\tmp\\Namoz_shablon.png");
+    }
+
+    @Scheduled(cron = "0 1 0 * * *",zone = "GMT+5:00")
+    private void refresh(){
+        refreshTimes();
+    }
+    @Scheduled(cron = "0 1 3 * * *",zone = "GMT+5:00")
+    private void refresh1(){
+        refreshTimes();
     }
 }

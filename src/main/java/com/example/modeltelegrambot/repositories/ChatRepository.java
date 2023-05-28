@@ -12,4 +12,6 @@ public interface ChatRepository extends JpaRepository<ChatEntity,Long> {
     Page<ChatEntity> findAll(Pageable pageable);
     @Query(value = "select sum(members_count) from chats",nativeQuery = true)
     Long getAllCountMembers();
+    @Query(value = "select count(*) from chats ",nativeQuery = true)
+    Long getCountAllChats();
 }

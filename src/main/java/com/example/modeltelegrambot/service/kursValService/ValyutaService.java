@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import javax.imageio.ImageIO;
@@ -90,5 +91,13 @@ public class ValyutaService {
     }
     public File getIMG(){
         return new File("img\\tmp\\Valyuta_shablon.png");
+    }
+    @Scheduled(cron = "0 1 0 * * *",zone = "GMT+5:00")
+    private void refresh(){
+        refreshData();
+    }
+    @Scheduled(cron = "0 0 3 * * *",zone = "GMT+5:00")
+    private void refresh1(){
+        refreshData();
     }
 }
