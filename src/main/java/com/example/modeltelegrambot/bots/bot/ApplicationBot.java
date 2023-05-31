@@ -181,7 +181,7 @@ public class ApplicationBot extends TelegramLongPollingBot {
     }
 
     private void SendListChats(Long userId) {
-        if (chatService.getAllChats(0).getTotalPages()<1){
+        if (chatService.getAllChatList(0).getTotalPages()<1){
             SendMessage sendMessage = new SendMessage(userId.toString(),"Chatlar Mavjud Emas!");
             try {
                 execute(sendMessage);
@@ -190,9 +190,9 @@ public class ApplicationBot extends TelegramLongPollingBot {
             }
         }
         int count = 1;
-        for (int i = 0; i < chatService.getAllChats(0).getTotalPages(); i++) {
+        for (int i = 0; i < chatService.getAllChatList(0).getTotalPages(); i++) {
             StringBuilder builder = new StringBuilder();
-            for (ChatEntity chat : chatService.getAllChats(i).getContent()) {
+            for (ChatEntity chat : chatService.getAllChatList(i).getContent()) {
                 builder.append(count).append(".");
                 builder.append(chat.toString());
                 count++;
@@ -394,7 +394,7 @@ public class ApplicationBot extends TelegramLongPollingBot {
         sendPhoto.setParseMode(ParseMode.HTML);
         sendPhoto.setCaption(
                 """
-                        <b>Bugun kun Namoz vaqtlari</b>
+                        <b>Bugungi kun Namoz vaqtlari</b>
                                            
                         Namozni to'kis ado etinglar, albatta namoz mo'minlarga
                         vaqtida farz qilingandir!
@@ -417,7 +417,7 @@ public class ApplicationBot extends TelegramLongPollingBot {
         sendPhoto.setReplyMarkup(NamazKeyboard(userService.getUser(userId).isUzbek()));
         sendPhoto.setCaption(
                 """
-                        <b>Bugun kun Namoz vaqtlari</b>
+                        <b>Bugungi kun Namoz vaqtlari</b>
                                            
                         Namozni to'kis ado etinglar, albatta namoz mo'minlarga
                         vaqtida farz qilingandir!
@@ -548,7 +548,7 @@ public class ApplicationBot extends TelegramLongPollingBot {
             row = new ArrayList<>();
             button = new InlineKeyboardButton();
             button.setCallbackData("namoz");
-            button.setText("Namoz vaqtalri⏰");
+            button.setText("Namoz vaqtlari⏰");
             row.add(button);
             keyboard.add(row);
             row = new ArrayList<>();
@@ -619,13 +619,21 @@ public class ApplicationBot extends TelegramLongPollingBot {
         if (bool){
             button = new InlineKeyboardButton();
             button.setCallbackData("namoz");
-            button.setText("Namoz vaqtalri⏰");
+            button.setText("Namoz vaqtlari⏰");
             row.add(button);
             keyboard.add(row);
+
             row = new ArrayList<>();
             button = new InlineKeyboardButton();
             button.setCallbackData("valyuta");
             button.setText("Valyuta Kurslari\uD83D\uDCB9");
+            row.add(button);
+
+            keyboard.add(row);
+            row = new ArrayList<>();
+            button = new InlineKeyboardButton();
+            button.setUrl("https://t.me/Kunlik_yordamchi_bot?startgroup=new");
+            button.setText("➕ Botni guruhga qo'shish ➕");
             row.add(button);
         }else {
             button = new InlineKeyboardButton();
@@ -633,10 +641,18 @@ public class ApplicationBot extends TelegramLongPollingBot {
             button.setText("Время молитвы⏰");
             row.add(button);
             keyboard.add(row);
+
             row = new ArrayList<>();
             button = new InlineKeyboardButton();
             button.setCallbackData("valyuta");
             button.setText("Курсы обмена\uD83D\uDCB9");
+            row.add(button);
+
+            keyboard.add(row);
+            row = new ArrayList<>();
+            button = new InlineKeyboardButton();
+            button.setUrl("https://t.me/Kunlik_yordamchi_bot?startgroup=new");
+            button.setText("➕ Добавить бота в группу ➕");
             row.add(button);
         }
         keyboard.add(row);

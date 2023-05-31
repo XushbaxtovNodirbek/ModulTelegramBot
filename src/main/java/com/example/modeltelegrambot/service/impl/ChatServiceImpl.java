@@ -28,6 +28,10 @@ public class ChatServiceImpl implements ChatService {
     public Page<ChatEntity> getAllChats(int page) {
         return chatRepository.findAll(PageRequest.of(page,200, Sort.by("membersCount").descending()));
     }
+    public Page<ChatEntity> getAllChatList(int page) {
+        return chatRepository.findAll(PageRequest.of(page,20, Sort.by("membersCount").descending()));
+    }
+
 
     @Override
     public Long getAllMembersCount() {
