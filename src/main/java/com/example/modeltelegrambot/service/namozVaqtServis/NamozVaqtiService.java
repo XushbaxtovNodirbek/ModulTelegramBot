@@ -10,6 +10,7 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.net.URLConnection;
@@ -53,14 +54,17 @@ public class NamozVaqtiService {
     }
 
     public void refreshTimes(){
-        String source = "img\\shablon\\Namoz_shablon.png";
-        String out = "img\\tmp\\Namoz_shablon.png";
+        String source = "/root/projects/yordamchi/img/shablon/Namoz_shablon.png";
+        String out = "/root/projects/yordamchi/img/tmp/Namoz_shablon.png";
         try {
             BufferedImage image = ImageIO.read(new File(source));
 
             Graphics2D graphics = image.createGraphics();
 
-            Font font = new Font("Agency FB", Font.BOLD, 180);
+            InputStream is = getClass().getResourceAsStream("/AgencyFB-Bold.ttf");
+            Font custom = Font.createFont(Font.TRUETYPE_FONT, is);
+
+            Font font = new Font(custom.getName(), Font.BOLD, 180);
             Color textColor = new Color(225,155,0);
 
             graphics.setFont(font);
@@ -93,7 +97,7 @@ public class NamozVaqtiService {
     }
 
     public File getIMG(){
-        return new File("img\\tmp\\Namoz_shablon.png");
+        return new File("/root/projects/yordamchi/img/tmp/Namoz_shablon.png");
     }
 
     @Scheduled(cron = "0 1 0 * * *",zone = "GMT+5:00")
