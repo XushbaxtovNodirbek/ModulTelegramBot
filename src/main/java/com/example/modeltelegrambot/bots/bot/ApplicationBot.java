@@ -371,8 +371,10 @@ public class ApplicationBot extends TelegramLongPollingBot {
         sendMessage.setChatId(id);
         if (isUzbek)
             sendMessage.setText(
-                    "Bot yordamida kunlik valyuta kurslari va butun O'zbekiston bo'yicha namoz vaqtlari haqida ma'lumotlar olishingiz mumkin." +
-                            "Malumotlar islom.uz va nbu.uz web saytlaridan to'g'ridan to'g'ri olib tarqatiladi.\n\n@Kunlik_yordamchi_bot"
+                    """
+                            Bot yordamida kunlik valyuta kurslari va butun O'zbekiston bo'yicha namoz vaqtlari haqida ma'lumotlar olishingiz mumkin.Malumotlar islom.uz va nbu.uz web saytlaridan to'g'ridan to'g'ri olib tarqatiladi.
+
+                            @Kunlik_yordamchi_bot"""
             );
         else
             sendMessage.setText(
