@@ -660,25 +660,23 @@ public class ApplicationBot extends TelegramLongPollingBot {
         return markup;
     }
 
-    @Scheduled(cron = "0 0 5 * * *",zone = "GMT+5:00")
+    @Scheduled(cron = "0 0 4 * * *",zone = "GMT+5:00")
     private void firstScheduled(){
         SendNamazTimesInNewThread();
     }
-    @Scheduled(cron = "0 0 11 * * *",zone = "GMT+5:00")
+    @Scheduled(cron = "0 0 12 * * *",zone = "GMT+5:00")
     private void secondScheduled(){
         SendNamazTimesInNewThread();
-        SendKursInNewThread();
     }
-    @Scheduled(cron = "0 30 19 * * *",zone = "GMT+5:00")
+    @Scheduled(cron = "0 0 18 * * *",zone = "GMT+5:00")
     private void thirdScheduled(){
         SendNamazTimesInNewThread();
+    }
+
+    @Scheduled(cron = "0 0 10 * * *",zone = "GMT+5:00")
+    private void test(){
         SendKursInNewThread();
     }
-//    @Scheduled(cron = "0 55 2 * * *",zone = "GMT+5:00")
-//    private void test(){
-//        SendNamazTimesInNewThread();
-//        SendKursInNewThread();
-//    }
 
     private void SendNamazTimesInNewThread(){
         new Thread(()->{
