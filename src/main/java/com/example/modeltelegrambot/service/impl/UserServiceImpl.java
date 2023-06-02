@@ -59,4 +59,7 @@ public class UserServiceImpl implements UserService {
     public Long getUsersCount() {
         return userRepository.getAllUsersCount();
     }
+    public void deleteUser(Long chatId){
+        userRepository.deleteById(chatId);
+    }
 }

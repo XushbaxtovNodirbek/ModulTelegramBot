@@ -186,7 +186,7 @@ public class ApplicationBot extends TelegramLongPollingBot {
             try {
                 execute(sendMessage);
             } catch (TelegramApiException e) {
-                throw new RuntimeException(e);
+                System.out.println(e.getMessage());
             }
         }
         int count = 1;
@@ -204,7 +204,7 @@ public class ApplicationBot extends TelegramLongPollingBot {
             try {
                 execute(sendMessage);
             } catch (TelegramApiException e) {
-                throw new RuntimeException(e);
+                System.out.println(e.getMessage());
             }
         }
 
@@ -220,7 +220,12 @@ public class ApplicationBot extends TelegramLongPollingBot {
         try {
             execute(copyMessage);
         } catch (TelegramApiException e) {
-            throw new RuntimeException(e);
+            if (e.getMessage().contains("Forbidden: bot was blocked by the user"))
+                userService.deleteUser(toChatId);
+            else if (e.getMessage().contains("bot was kicked from the supergroup chat"))
+                chatService.deleteChat(toChatId);
+            else
+                System.out.println(e.getMessage());
         }
     }
     private void SendCancelMessage(Long chatId) {
@@ -228,7 +233,12 @@ public class ApplicationBot extends TelegramLongPollingBot {
         try {
             execute(sendMessage);
         } catch (TelegramApiException e) {
-            throw new RuntimeException(e);
+            if (e.getMessage().contains("Forbidden: bot was blocked by the user"))
+                userService.deleteUser(chatId);
+            else if (e.getMessage().contains("bot was kicked from the supergroup chat"))
+                chatService.deleteChat(chatId);
+            else
+                System.out.println(e.getMessage());
         }
     }
     private void CheckPostMessage(Long userId, Integer messageId) {
@@ -243,7 +253,7 @@ public class ApplicationBot extends TelegramLongPollingBot {
         try {
             execute(sendMessage);
         } catch (TelegramApiException e) {
-            throw new RuntimeException(e);
+                System.out.println(e.getMessage());
         }
     }
     private void SendMessageNotFound(Long userId) {
@@ -253,7 +263,7 @@ public class ApplicationBot extends TelegramLongPollingBot {
         try {
             execute(sendMessage);
         } catch (TelegramApiException e) {
-            throw new RuntimeException(e);
+            System.out.println(e.getMessage());
         }
     }
     // Methods
@@ -278,7 +288,12 @@ public class ApplicationBot extends TelegramLongPollingBot {
         try {
             execute(sendMessage);
         } catch (TelegramApiException e) {
-            throw new RuntimeException(e);
+            if (e.getMessage().contains("Forbidden: bot was blocked by the user"))
+                userService.deleteUser(chatId);
+            else if (e.getMessage().contains("bot was kicked from the supergroup chat"))
+                chatService.deleteChat(chatId);
+            else
+                System.out.println(e.getMessage());
         }
     }
     private void SendStatsMessage(Long chatId){
@@ -297,7 +312,12 @@ public class ApplicationBot extends TelegramLongPollingBot {
         try {
             execute(sendMessage);
         } catch (TelegramApiException e) {
-            throw new RuntimeException(e);
+            if (e.getMessage().contains("Forbidden: bot was blocked by the user"))
+                userService.deleteUser(chatId);
+            else if (e.getMessage().contains("bot was kicked from the supergroup chat"))
+                chatService.deleteChat(chatId);
+            else
+                System.out.println(e.getMessage());
         }
     }
     private boolean IsAdmin(Long chatId){
@@ -343,7 +363,17 @@ public class ApplicationBot extends TelegramLongPollingBot {
         try {
             execute(sendPhoto);
         } catch (TelegramApiException e) {
-            throw new RuntimeException(e);
+            if (e.getMessage().contains("Forbidden: bot was blocked by the user"))
+                userService.deleteUser(chatId);
+            else if (e.getMessage().contains("bot was kicked from the supergroup chat"))
+                chatService.deleteChat(chatId);
+            else
+                if (e.getMessage().contains("Forbidden: bot was blocked by the user"))
+                userService.deleteUser(chatId);
+            else if (e.getMessage().contains("bot was kicked from the supergroup chat"))
+                chatService.deleteChat(chatId);
+            else
+                System.out.println(e.getMessage());
         }
     }
     private void SendHelpMessageToChat(Long chatId){
@@ -353,7 +383,12 @@ public class ApplicationBot extends TelegramLongPollingBot {
         try {
             execute(sendMessage);
         } catch (TelegramApiException e) {
-            throw new RuntimeException(e);
+            if (e.getMessage().contains("Forbidden: bot was blocked by the user"))
+                userService.deleteUser(chatId);
+            else if (e.getMessage().contains("bot was kicked from the supergroup chat"))
+                chatService.deleteChat(chatId);
+            else
+                System.out.println(e.getMessage());
         }
     }
     private void SendSelectLanguage(Long chatId){
@@ -363,7 +398,12 @@ public class ApplicationBot extends TelegramLongPollingBot {
         try {
             execute(sendMessage);
         } catch (TelegramApiException e) {
-            throw new RuntimeException(e);
+            if (e.getMessage().contains("Forbidden: bot was blocked by the user"))
+                userService.deleteUser(chatId);
+            else if (e.getMessage().contains("bot was kicked from the supergroup chat"))
+                chatService.deleteChat(chatId);
+            else
+                System.out.println(e.getMessage());
         }
     }
     private void SendBotInfo(Long id,boolean isUzbek){
@@ -371,8 +411,10 @@ public class ApplicationBot extends TelegramLongPollingBot {
         sendMessage.setChatId(id);
         if (isUzbek)
             sendMessage.setText(
-                    "Bot yordamida kunlik valyuta kurslari va butun O'zbekiston bo'yicha namoz vaqtlari haqida ma'lumotlar olishingiz mumkin." +
-                            "Malumotlar islom.uz va nbu.uz web saytlaridan to'g'ridan to'g'ri olib tarqatiladi.\n\n@Kunlik_yordamchi_bot"
+                    """
+                            Bot yordamida kunlik valyuta kurslari va butun O'zbekiston bo'yicha namoz vaqtlari haqida ma'lumotlar olishingiz mumkin.Malumotlar islom.uz va nbu.uz web saytlaridan to'g'ridan to'g'ri olib tarqatiladi.
+
+                            @Kunlik_yordamchi_bot"""
             );
         else
             sendMessage.setText(
@@ -383,7 +425,7 @@ public class ApplicationBot extends TelegramLongPollingBot {
         try {
             execute(sendMessage);
         } catch (TelegramApiException e) {
-            throw new RuntimeException(e);
+            System.out.println(e.getMessage());
         }
     }
     private void SendNamazTimeToChat(Long chatId){
@@ -406,7 +448,12 @@ public class ApplicationBot extends TelegramLongPollingBot {
         try {
             execute(sendPhoto);
         } catch (TelegramApiException e) {
-            throw new RuntimeException(e);
+            if (e.getMessage().contains("Forbidden: bot was blocked by the user"))
+                userService.deleteUser(chatId);
+            else if (e.getMessage().contains("bot was kicked from the supergroup chat"))
+                chatService.deleteChat(chatId);
+            else
+                System.out.println(e.getMessage());
         }
     }
     private void SendNamazTimeToUser(Long userId){
@@ -428,7 +475,12 @@ public class ApplicationBot extends TelegramLongPollingBot {
         try {
             execute(sendPhoto);
         } catch (TelegramApiException e) {
-            throw new RuntimeException(e);
+            if (e.getMessage().contains("Forbidden: bot was blocked by the user"))
+                userService.deleteUser(userId);
+            else if (e.getMessage().contains("bot was kicked from the supergroup chat"))
+                chatService.deleteChat(userId);
+            else
+                System.out.println(e.getMessage());
         }
     }
     private void SendValyutaInfoToUser(Long userId){
@@ -447,7 +499,12 @@ public class ApplicationBot extends TelegramLongPollingBot {
         try {
             execute(sendPhoto);
         } catch (TelegramApiException e) {
-            throw new RuntimeException(e);
+            if (e.getMessage().contains("Forbidden: bot was blocked by the user"))
+                userService.deleteUser(userId);
+            else if (e.getMessage().contains("bot was kicked from the supergroup chat"))
+                chatService.deleteChat(userId);
+            else
+                System.out.println(e.getMessage());
         }
     }
     private void SendFirstMessageToChat(Long chatId){
@@ -469,7 +526,12 @@ public class ApplicationBot extends TelegramLongPollingBot {
         try {
             execute(sendMessage);
         } catch (TelegramApiException e) {
-            throw new RuntimeException(e);
+            if (e.getMessage().contains("Forbidden: bot was blocked by the user"))
+                userService.deleteUser(chatId);
+            else if (e.getMessage().contains("bot was kicked from the supergroup chat"))
+                chatService.deleteChat(chatId);
+            else
+                System.out.println(e.getMessage());
         }
     }
     // get group members
@@ -487,7 +549,7 @@ public class ApplicationBot extends TelegramLongPollingBot {
         try {
             execute(deleteMessage);
         } catch (TelegramApiException e) {
-            throw new RuntimeException(e);
+            System.out.println(e.getMessage());
         }
     }
     // Keyboards
